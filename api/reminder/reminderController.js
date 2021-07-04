@@ -1,4 +1,5 @@
 let ReminderModel = require('./reminderModel.js');
+const aqp = require('api-query-params');
 
 /**
  * reminderController.js
@@ -11,7 +12,26 @@ module.exports = {
    * reminderController.list()
    */
   list: (req, res) => {
-    ReminderModel.find((err, reminders) => {
+
+    /* const { filter, skip, limit, sort, projection, population } = aqp(req.query);
+    
+    ReminderModel.find(filter)
+    .skip(skip)
+    .limit(limit)
+    .sort(sort)
+    .select(projection)
+    .populate(population)
+    .exec((err, reminders) => {
+      if (err) {
+        return res.status(500).json({
+          message: `Error when getting reminders. ${err.message}`,
+          error: err
+        });
+      }
+      return res.status(200).json(reminders);
+    }); */
+
+    ReminderModel.find({ 'date.year': req.query.year, 'date.month': req.query.month }, (err, reminders) => {
       if (err) {
         return res.status(500).json({
           message: 'Error when getting reminders.',
@@ -48,10 +68,9 @@ module.exports = {
    */
   create: (req, res) => {
     let reminder = new ReminderModel({
-			text : req.body.text,
+			title : req.body.title,
 			date : req.body.date,
-			year : req.body.year,
-			month : req.body.month,
+			time : req.body.time,
 			color : req.body.color,
 			city : req.body.city
     });
@@ -85,7 +104,7 @@ module.exports = {
         });
       }
 
-      reminder.text = req.body.text ? req.body.text : reminder.text;
+      reminder.title = req.body.title ? req.body.title : reminder.title;
 			reminder.date = req.body.date ? req.body.date : reminder.date;
 			reminder.year = req.body.year ? req.body.year : reminder.year;
 			reminder.month = req.body.month ? req.body.month : reminder.month;
