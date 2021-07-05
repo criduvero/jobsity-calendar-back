@@ -106,8 +106,7 @@ module.exports = {
 
       reminder.title = req.body.title ? req.body.title : reminder.title;
 			reminder.date = req.body.date ? req.body.date : reminder.date;
-			reminder.year = req.body.year ? req.body.year : reminder.year;
-			reminder.month = req.body.month ? req.body.month : reminder.month;
+			reminder.time = req.body.time ? req.body.time : reminder.time;
 			reminder.color = req.body.color ? req.body.color : reminder.color;
 			reminder.city = req.body.city ? req.body.city : reminder.city;
 			

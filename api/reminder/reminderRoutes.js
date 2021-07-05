@@ -20,7 +20,7 @@ router.post('/', reminderController.create);
 /*
  * PUT
  */
-router.put('/:id', reminderController.update);
+router.put('/update/:id', reminderController.update);
 
 /*
  * DELETE
